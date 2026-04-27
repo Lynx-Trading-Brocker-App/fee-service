@@ -1,5 +1,6 @@
 package com.lynx.fee_service.dto;
 
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.Setter;
 import jakarta.validation.constraints.NotNull;
@@ -12,6 +13,12 @@ import java.math.BigDecimal;
 public class FeeRequest {
 
     @NotNull
+    private String orderId;
+
+    @NotNull
+    private String platformUserId;
+
+    @NotNull
     @Positive
     private BigDecimal price;
 
@@ -19,5 +26,6 @@ public class FeeRequest {
     private int quantity;
 
     @NotNull
+    @PositiveOrZero
     private BigDecimal exchangeFee;
 }
