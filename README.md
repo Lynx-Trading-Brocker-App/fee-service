@@ -225,14 +225,4 @@ Run all tests:
 * Repository layer
 * Uses Testcontainers with PostgreSQL
 
----
 
-
-## Future Improvements
-
-* Replace API key with service-to-service authentication (JWT / mTLS)
-* Add audit metadata (e.g., order status)
-* Introduce event-driven architecture (Kafka)
-* Add monitoring and metrics (Prometheus, Grafana)
-
----
