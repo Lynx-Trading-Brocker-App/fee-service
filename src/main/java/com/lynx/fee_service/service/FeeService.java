@@ -39,8 +39,8 @@ public class FeeService {
         return base.add(exchangeFee).add(platformFee);
     }
 
-    public Fee createFee(
-            String orderId,
+    public Fee saveFee(
+            UUID orderId,
             String platformUserId,
             BigDecimal price,
             int quantity,
@@ -55,7 +55,6 @@ public class FeeService {
                 .amount(amount)
                 .exchangeFee(exchangeFee)
                 .platformFee(platformFee)
-                .createdAt(LocalDateTime.now())
                 .build();
 
         return feeRepository.save(fee);

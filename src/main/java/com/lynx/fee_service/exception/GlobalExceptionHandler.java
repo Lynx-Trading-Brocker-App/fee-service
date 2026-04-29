@@ -77,4 +77,19 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(Map.of("error", error));
     }
 
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<Map<String, Object>> handleForbidden(ForbiddenException ex) {
+
+        ErrorResponse error = new ErrorResponse(
+                "FORBIDDEN",
+                ex.getMessage(),
+                new HashMap<>()
+        );
+
+        return new ResponseEntity<>(
+                Map.of("error", error),
+                HttpStatus.FORBIDDEN
+        );
+    }
+
 }

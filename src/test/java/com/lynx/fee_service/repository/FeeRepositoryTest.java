@@ -13,6 +13,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,7 +37,7 @@ class FeeRepositoryTest {
 
     private Fee createFee() {
         return Fee.builder()
-                .orderId("ord-1")
+                .orderId(UUID.randomUUID())
                 .platformUserId("user-1")
                 .amount(new BigDecimal("100"))
                 .exchangeFee(new BigDecimal("1"))
@@ -59,7 +60,7 @@ class FeeRepositoryTest {
         Fee found = feeRepository.findById(saved.getId()).orElse(null);
 
         assertNotNull(found);
-        assertEquals("ord-1", found.getOrderId());
+        assertEquals(saved.getOrderId(), found.getOrderId());
     }
 
     @Test

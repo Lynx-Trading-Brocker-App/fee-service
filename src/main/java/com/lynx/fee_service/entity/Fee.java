@@ -21,7 +21,7 @@ public class Fee {
     private UUID id;
 
     @Column(nullable = false)
-    private String orderId;
+    private UUID orderId;
 
     @Column(nullable = false)
     private String platformUserId;
@@ -37,4 +37,9 @@ public class Fee {
 
     @Column(nullable = false)
     private LocalDateTime createdAt;
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
 }

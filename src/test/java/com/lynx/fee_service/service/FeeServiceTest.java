@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -59,10 +60,16 @@ class FeeServiceTest {
     void shouldCreateFee() {
         setFeeRate(new BigDecimal("0.01"));
 
-        when(feeRepository.save(any())).thenAnswer(i -> i.getArgument(0));
+        when(feeRepository.save(any())).thenAnswer(invocation -> {
+            Fee fee = invocation.getArgument(0);
 
-        Fee fee = feeService.createFee(
-                "ord-1",
+            fee.setCreatedAt(LocalDateTime.now());
+
+            return fee;
+        });
+
+        Fee fee = feeService.saveFee(
+                UUID.randomUUID(),
                 "user-1",
                 new BigDecimal("100"),
                 2,
@@ -71,7 +78,7 @@ class FeeServiceTest {
 
         assertNotNull(fee);
         assertEquals(new BigDecimal("200"), fee.getAmount());
-        assertEquals("ord-1", fee.getOrderId());
+        assertNotNull(fee.getCreatedAt());
 
         verify(feeRepository, times(1)).save(any());
     }

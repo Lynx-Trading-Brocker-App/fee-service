@@ -5,12 +5,13 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
 public class FeeUpdateRequest {
 
-    private String orderId;
+    private UUID orderId;
     private String platformUserId;
     private BigDecimal amount;
     private BigDecimal exchangeFee;

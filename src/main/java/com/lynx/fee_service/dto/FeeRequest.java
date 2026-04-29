@@ -7,13 +7,14 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Getter
 @Setter
 public class FeeRequest {
 
     @NotNull
-    private String orderId;
+    private UUID orderId;
 
     @NotNull
     private String platformUserId;

@@ -11,3 +11,6 @@ spring:
 
 fee:
   rate: 0.01
+
+internal:
+  api-key: secret123
