@@ -226,3 +226,36 @@ Run all tests:
 * Uses Testcontainers with PostgreSQL
 
 
+
+
+## Environment Variables
+
+The service uses environment variables for sensitive configuration.
+
+Example:
+
+```bash
+DB_URL=jdbc:postgresql://localhost:5433/fee_db
+DB_USERNAME=user
+DB_PASSWORD=password
+INTERNAL_API_KEY=your-secret-key
+FEE_RATE=0.01
+```
+
+### Security Notes
+
+* Secrets are externalized via environment variables
+* The service runs as a stateless internal microservice
+* Internal endpoints require `X-INTERNAL-KEY`
+* Fee records are immutable after creation
+* SQL logging is disabled in production configuration
+
+## Validation Rules
+
+| Field | Validation |
+|---|---|
+| orderId | required |
+| platformUserId | required |
+| price | positive |
+| quantity | positive |
+| exchangeFee | positive or zero |
