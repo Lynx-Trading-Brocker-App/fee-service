@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/fee_db
-    username: user
-    password: password
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
 
   jpa:
     hibernate:
@@ -10,7 +10,7 @@ spring:
     show-sql: true
 
 fee:
-  rate: 0.01
+  rate: ${FEE_RATE:0.01}
 
 internal:
-  api-key: secret123
+  api-key: ${INTERNAL_API_KEY}
