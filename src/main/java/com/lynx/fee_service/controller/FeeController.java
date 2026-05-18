@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 
 @RestController
@@ -68,6 +69,29 @@ public class FeeController {
                 request.getQuantity(),
                 request.getExchangeFee()
         );
+    }
+
+    @GetMapping("/revenue")
+    public Map<String, BigDecimal> getRevenue(@RequestHeader("X-INTERNAL-KEY") String key) {
+        validateKey(key);
+        return Map.of("total_revenue", feeService.getTotalRevenue());
+    }
+
+    @GetMapping("/rate")
+    public BigDecimal getRate(@RequestHeader("X-INTERNAL-KEY") String key) {
+        validateKey(key);
+        return feeService.getFeeRate();
+    }
+
+    @PatchMapping("/rate")
+    public void updateRate(
+            @RequestHeader("X-INTERNAL-KEY") String key,
+            @RequestBody Map<String, BigDecimal> body) {
+        validateKey(key);
+        BigDecimal newRate = body.get("rate");
+        if (newRate != null) {
+            feeService.updateFeeRate(newRate);
+        }
     }
 
 }

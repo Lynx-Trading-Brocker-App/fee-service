@@ -68,5 +68,18 @@ public class FeeService {
                 .orElseThrow(() -> new FeeNotFoundException("Fee not found"));
     }
 
+    public BigDecimal getTotalRevenue() {
+        BigDecimal sum = feeRepository.sumTotalPlatformFee();
+        return sum != null ? sum : BigDecimal.ZERO;
+    }
+
+    public BigDecimal getFeeRate() {
+        return feeRate;
+    }
+
+    public void updateFeeRate(BigDecimal newRate) {
+        this.feeRate = newRate;
+    }
+
 
 }
